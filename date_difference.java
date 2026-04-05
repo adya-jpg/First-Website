@@ -23,5 +23,6 @@ public class date_difference {
         System.out.println("number of days between " + firstDate + " and " + secondDate + " is: " + Math.abs(daysBetween) + " days.");
 
         scanner.close();
+        //
     }
 }
