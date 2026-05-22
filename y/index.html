@@ -86,14 +86,14 @@
 <body>
 
 <div class="container">
-  <h1>Live Comments</h1>
+  <h1>commentaires.</h1>
 
   <div id="comments"></div>
 
   <div class="input-area">
-    <input id="name" placeholder="Your name">
-    <input id="message" placeholder="Write a comment...">
-    <button id="send">Send</button>
+    <input id="name" placeholder="ton nom...">
+    <input id="message" placeholder="écrivez un commentaire...">
+    <button id="envoyer">envoyer</button>
   </div>
 </div>
 
@@ -159,7 +159,7 @@ const analytics = getAnalytics(app);
     commentsDiv.scrollTop = commentsDiv.scrollHeight;
   });
 
-  document.getElementById("send").addEventListener("click", async () => {
+  document.getElementById("envoyer").addEventListener("click", async () => {
     const name = document.getElementById("name").value.trim();
     const message = document.getElementById("message").value.trim();
 
@@ -172,6 +172,7 @@ const analytics = getAnalytics(app);
     });
 
     document.getElementById("message").value = "";
+    document.getElementById("name").value = "";
   });
 </script>
 
