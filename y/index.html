@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>live comments</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #0f0f0f;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #comments {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 15px;
+      height: 400px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+    }
+
+    .comment {
+      background: #262626;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      word-wrap: break-word;
+    }
+
+    .comment strong {
+      color: #4da3ff;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input {
+      flex: 1;
+      min-width: 180px;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: #1f1f1f;
+      color: white;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #888;
+    }
+
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #4da3ff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #3391f5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Live Comments</h1>
+
+  <div id="comments"></div>
+
+  <div class="input-area">
+    <input id="name" placeholder="Your name">
+    <input id="message" placeholder="Write a comment...">
+    <button id="send">Send</button>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    query,
+    orderBy,
+    onSnapshot,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBtSsZgLPp-IGWy3ahyPEUqt-d65B8b6fg",
+  authDomain: "blogcommentfrench.firebaseapp.com",
+  projectId: "blogcommentfrench",
+  storageBucket: "blogcommentfrench.firebasestorage.app",
+  messagingSenderId: "299140351369",
+  appId: "1:299140351369:web:3ff1a40b1e243e5326cd58",
+  measurementId: "G-RXP7P04TM5"
+};
+
+// Initialize Firebase
+const analytics = getAnalytics(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const commentsRef = collection(db, "comments");
+
+  const q = query(commentsRef, orderBy("time"));
+
+  onSnapshot(q, (snapshot) => {
+    const commentsDiv = document.getElementById("comments");
+
+    commentsDiv.innerHTML = "";
+
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+
+      const div = document.createElement("div");
+      div.className = "comment";
+
+      div.innerHTML = `
+        <strong>${data.name}</strong><br>
+        ${data.message}
+      `;
+
+      commentsDiv.appendChild(div);
+    });
+
+    commentsDiv.scrollTop = commentsDiv.scrollHeight;
+  });
+
+  document.getElementById("send").addEventListener("click", async () => {
+    const name = document.getElementById("name").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!name || !message) return;
+
+    await addDoc(commentsRef, {
+      name,
+      message,
+      time: serverTimestamp()
+    });
+
+    document.getElementById("message").value = "";
+  });
+</script>
+
+</body>
+</html>
