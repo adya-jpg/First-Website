@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "blogcommentfrench"
-  }
+    "default": "leblogd-adya",
+    "main": "leblogd-adya"
+  },
+  "targets": {},
+  "etags": {}
 }
