@@ -42,7 +42,25 @@ body {
 
   margin: 12px;
 
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.rainbow-header .stamp-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin-top: 0;
+}
+
+.rainbow-header .stamp-box img {
+  height: 52px;
+  width: auto;
+  display: block;
+  border: none;
 }
 
 .rainbow-header h1 {
