@@ -21,9 +21,13 @@ body {
     35px 35px,
     35px 35px;
 
-  font-family: Arial, sans-serif;
+  font-family: "Trebuchet MS", sans-serif;
 
   color: #f5ecd7;
+
+  .mini-box h3 {
+  font-family: "Courier New", monospace;
+}
 }
 
 
@@ -490,4 +494,73 @@ body::after {
   image-rendering: pixelated;
 
   border: 2px solid #18271f;
+}
+
+.fireflies {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+
+  z-index: -1;
+
+  background-image:
+    radial-gradient(#ffe066 2px, transparent 2px),
+    radial-gradient(#d7ff87 1.5px, transparent 1.5px),
+    radial-gradient(#fff4a3 2px, transparent 2px);
+
+  background-size:
+    180px 180px,
+    250px 250px,
+    320px 320px;
+
+  animation: floatFireflies 18s linear infinite;
+
+  opacity: 0.45;
+}
+
+@keyframes floatFireflies {
+
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-120px);
+  }
+
+}
+
+.leaves {
+  position: fixed;
+
+  bottom: 10px;
+  right: 20px;
+
+  font-size: 24px;
+
+  opacity: 0.7;
+
+  animation: sway 4s ease-in-out infinite;
+}
+
+@keyframes sway {
+
+  0% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(3deg);
+  }
+
+  100% {
+    transform: rotate(-3deg);
+  }
+
 }
