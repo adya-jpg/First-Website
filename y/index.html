@@ -86,7 +86,7 @@ document
 .addEventListener("click", async () => {
 
   const name =
-    document.getElementById("name").value.trim();
+    document.getElementById("nom").value.trim();
 
   const message =
     document.getElementById("message").value.trim();
@@ -102,7 +102,7 @@ document
 
   });
 
-  document.getElementById("name").value = "";
+  document.getElementById("nom").value = "";
 
   document.getElementById("message").value = "";
 
@@ -145,7 +145,7 @@ document
     <div class="sidebar">
 
       <p class="visitor-counter">
-        visiteur numéro : 000042
+        visiteur numéro : 01100001
       </p>
 
       <p>
@@ -285,12 +285,18 @@ document
       commentaires.
     </h1>
 
+    <p class="comments-warning">
+      veuillez noter : les commentaires sont PERMANENTS ET PUBLICS, ce qui signifie qu'ils NE PEUVENT PAS ÊTRE SUPPRIMÉS UNE FOIS PUBLIÉS ET SONT ACCESSIBLES À TOUTE PERSONNE QUI CLIQUE SUR CE SITE. 
+      <br>
+      merci de faire preuve de respect et de courtoisie.
+    </p>
+
     <div id="comments"></div>
 
     <div class="input-area">
 
       <input
-        id="name"
+        id="nom"
         placeholder="ton nom..."
       >
 
