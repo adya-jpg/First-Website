@@ -8,7 +8,7 @@ When integrating Firebase Authentication and Google Sign-In into Flutter apps ta
 
 ## 2. Initialization & Web Hang/Crash Pitfalls 
 - **Initialization Requirement**: In 7.x, you must call `await GoogleSignIn.instance.initialize();` globally before using the plugin.
-- **Web Client ID Constraint**: On Flutter Web, if you call `initialize()` without passing a `clientId` argument OR specifying the `<meta name="google-signin-client_id" ... />` tag in `web/index.html`, the Dart Web Debug Service (DWDS) and the app will throw an assertion error and **hang infinitely**, resulting in a blank screen.
+- **Web Client ID Constraint**: On Flutter Web, if you call `initialize()` without passing a `clientId` argument OR specifying the `<meta name="google-signin-client_id" ... />` tag in `web/homepage.html`, the Dart Web Debug Service (DWDS) and the app will throw an assertion error and **hang infinitely**, resulting in a blank screen.
 - **Common Workaround**: If you intend to use Firebase Auth's `signInWithPopup(GoogleAuthProvider())` for the web, you can conditionally skip the local `GoogleSignIn` package initialization entirely:
   ```dart
   import 'package:flutter/foundation.dart' show kIsWeb;
