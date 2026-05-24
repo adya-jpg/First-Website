@@ -30,7 +30,10 @@ import {
   query,
   orderBy,
   onSnapshot,
-  serverTimestamp
+  serverTimestamp,
+  deleteDoc,
+  doc,
+  updateDoc
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -43,6 +46,19 @@ const firebaseConfig = {
   appId: "1:135127492871:web:dd039554a5f4e3e8467da2",
   measurementId: "G-K2YPSE27VG"
 };
+
+
+let userId = localStorage.getItem("userId");
+
+if (!userId) {
+
+  userId = crypto.randomUUID();
+
+  localStorage.setItem("userId", userId);
+
+}
+
+
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
@@ -51,6 +67,7 @@ const commentsRef = collection(db, "comments");
 
 const q = query(commentsRef, orderBy("time"));
 
+
 onSnapshot(q, (snapshot) => {
 
   const commentsDiv =
@@ -58,9 +75,9 @@ onSnapshot(q, (snapshot) => {
 
   commentsDiv.innerHTML = "";
 
-  snapshot.forEach((doc) => {
+  snapshot.forEach((commentDoc) => {
 
-    const data = doc.data();
+    const data = commentDoc.data();
 
     const div =
       document.createElement("div");
@@ -69,10 +86,65 @@ onSnapshot(q, (snapshot) => {
 
     div.innerHTML = `
       <strong>${data.name}</strong><br>
-      ${data.message}
+
+      <p>${data.message}</p>
+
+      ${
+        data.ownerId === userId
+          ? `
+            <button class="delete-btn">
+              supprimer
+            </button>
+
+            <button class="edit-btn">
+              modifier
+            </button>
+          `
+          : ""
+      }
     `;
 
     commentsDiv.appendChild(div);
+
+    const deleteBtn =
+      div.querySelector(".delete-btn");
+
+    if (deleteBtn) {
+
+      deleteBtn.addEventListener("click", async () => {
+
+        await deleteDoc(
+          doc(db, "comments", commentDoc.id)
+        );
+
+      });
+
+    }
+
+    const editBtn =
+      div.querySelector(".edit-btn");
+
+    if (editBtn) {
+
+      editBtn.addEventListener("click", async () => {
+
+        const newMessage = prompt(
+          "modifier le commentaire :",
+          data.message
+        );
+
+        if (!newMessage) return;
+
+        await updateDoc(
+          doc(db, "comments", commentDoc.id),
+          {
+            message: newMessage
+          }
+        );
+
+      });
+
+    }
 
   });
 
@@ -90,15 +162,16 @@ document
 
   if (!name || !message) return;
 
-  await addDoc(commentsRef, {
+   await addDoc(commentsRef, {
 
     name,
     message,
 
+    ownerId: userId,
+
     time: serverTimestamp()
 
   });
-
   document.getElementById("nom").value = "";
 
   document.getElementById("message").value = "";
@@ -128,7 +201,7 @@ document
 
   <div class="marquee">
     <marquee>
-      ☆ bienvenue dans mon univers internet bizarre ☆
+      ☆ puissiez-vous toucher les libellules et les étoiles, danser avec les fées et parler à la lune. ☆
     </marquee>
   </div>
 
@@ -210,7 +283,7 @@ document
       </div>
 
       <p class="desktop-note">
-        ☆ meilleur sur ordinateur ☆
+        ☆ conçu, codé et écrit par adya verma ☆
       </p>
 
     </div>
@@ -219,30 +292,71 @@ document
     <div class="content">
 
       <h2>
-        salut internet 2 !!
+        permanence de l'objet.
       </h2>
-
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2WZwjYUOlNTi6oYl6Un3XQ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       <p>
-        bienvenue dans mon petit univers, dans cette blogue que j'ai créé pour partager mes pensées, mes projets et mes passions avec vous tous,
-        et pour parler de mes livres préférés, ma musique que j'aime, mes projets de code, et tout ce qui me fait vibrer dans ce monde numérique chaotique ☆
-      </p>
+        Les humains apprennent très tôt ce que les psychologues appellent « la permanence de l’objet ».<br><br>
+C’est une adaptation cognitive simple : comprendre que quelque chose continue d’exister même lorsqu’il quitte le champ de perception.<br><br>
+Un jouet disparaît sous une couverture.<br>
+Le bébé pleure.<br>
+Puis apprend que l’objet est encore là, même invisible.<br><br>
+Cela stabilise leur monde.<br><br>
+Mais peut-être que leur première erreur commence exactement ici.<br><br>
+Parce qu’ils étendent ensuite cette logique à eux-mêmes.<br><br>
+Les humains vivent comme si leur identité était constante. Comme si le « soi » persistait intact entre les moments. Comme si le futur était un endroit qu’ils allaient forcément atteindre.<br><br>
+D’un point de vue extérieur, c’est étrange.<br><br>
+Il n’existe aucun « soi » stable à préserver.<br><br>
+Ce qu’ils appellent une personne ressemble davantage à un assemblage temporaire : des impulsions électriques, des réactions chimiques, des souvenirs, des habitudes, des environnements. Quelque chose qui se reconstruit continuellement tout en disparaissant lentement.<br><br>
+Et pourtant, ils agissent comme si leur absence était théorique.<br><br>
+Ils parlent de demain avec certitude. Ils font des plans pour des années qu’ils ne verront peut-être jamais. Ils imaginent des versions futures d’eux-mêmes comme si la continuité était garantie.<br><br>
+Alors que partout autour d’eux, tout se désintègre constamment.<br><br>
+Les corps vieillissent.<br>
+Les systèmes échouent.<br>
+Les organismes meurent.<br>
+Les souvenirs s’effacent.<br><br>
+Et malgré cela, les humains traitent encore leur propre fin comme quelque chose de lointain. presque abstrait.<br><br>
+Ce n’est pas vraiment logique.<br><br>
+C’est probablement un mécanisme de protection.<br><br>
+Parce qu’un esprit incapable d’ignorer l’impermanence finirait peut-être par cesser de fonctionner normalement.<br><br>
+Alors ils réduisent la réalité. Ils l’adoucissent. Ils transforment une certitude absolue en un événement futur vague et distant.<br><br>
+Et grâce à cela, ils continuent.<br><br>
+Ils s’attachent à des choses déjà en train de disparaître.<br>
+Ils donnent du sens à des motifs temporaires.<br>
+Ils construisent des archives, des relations, des villes, des souvenirs.<br><br>
+Des tentatives fragiles de créer de la continuité dans un système défini par la perte.<br><br>
+D’un point de vue extérieur, cela semble inefficace.<br><br>
+Ils investissent énormément dans ce qui ne peut pas être conservé.<br>
+Ils résistent à ce qui ne peut pas être empêché.<br>
+Ils ignorent ce qui ne peut pas être évité.<br><br>
+Et malgré tout, ils continuent d’avancer.<br><br>
+Pas parce que la permanence existe.<br><br>
+Mais parce qu’ils ont besoin de croire qu’elle existe.<br><br>
+Peut-être que l’espoir humain n’est finalement qu’une forme élégante d’oubli.<br><br>
+Une omission nécessaire.<br><br>
+Parce que rien ne reste réellement intact.<br><br>
+Aucune identité ne persiste éternellement.<br>
+Aucune structure n’est permanente.<br>
+Aucun souvenir n’est à l’abri de l’effacement.<br><br>
+Et pourtant, les humains continuent de vivre comme s’ils étaient encore là pour voir ce qui arrive ensuite.<br><br>
+Et d’une certaine façon, c’est peut-être la chose la plus humaine de toutes.<br>
+---<br>
+une note et un question pour toi : <br>
+oui je sais, c'est un peu sombre pour un article de blog, mais êtes-vous d'accord avec moi ? où pensez-vous que ce qui est dit est faux ? <br>
+        ( et oui je pense ça a 2h du matin, que voulez-vous que je dise ? )
 
-      <p>
-        ce site est inspiré des vieux blogs internet,
-        des jeux rétro et ma coleur préférée : le vert forêt ☆
       </p>
 
       <div class="retro-box">
         <p>
-          j'aime créer des trucs bizarres et expérimenter avec le code,
-          alors attendez-vous à voir des projets de code, des petits jeux, et d'autres trucs aléatoires sur ce site ☆
+          résumé général ☆
         </p>
 
         <ul>
-          <li>☆ les vieux blogs</li>
-          <li>☆ les forêts pixelisées</li>
-          <li>☆ les projets de code</li>
-          <li>☆ la coleur vert forêt</li>
+          <li>☆ les humains apprennent très tôt à croire que les choses continuent d’exister même quand ils ne les voient plus.</li>
+          <li>☆ ils appliquent ensuite cette idée à eux-mêmes, comme si leur identité et leur futur étaient permanents.</li>
+          <li>☆ pour survivre mentalement, les humains ignorent partiellement l’impermanence et transforment la mort en idée lointaine et abstraite.</li>
+          <li>☆ malgré le fait que tout disparaisse un jour, les humains continuent d’aimer, de créer et d’espérer.</li>
         </ul>
 
       </div>
@@ -258,11 +372,11 @@ document
     <h1 id="comments-title">
       commentaires.
     </h1>
-    
+   
     <p class="comments-warning">
-      veuillez noter : les commentaires sont PERMANENTS ET PUBLICS, ce qui signifie qu'ils NE PEUVENT PAS ÊTRE SUPPRIMÉS UNE FOIS PUBLIÉS ET SONT ACCESSIBLES À TOUTE PERSONNE QUI CLIQUE SUR CE SITE. 
+      Veuillez noter : les commentaires sont publics, c’est-à-dire accessibles à toute personne consultant ce site. Vous pouvez les modifier en cliquant sur le bouton « Modifier » et les supprimer en cliquant sur le bouton « Supprimer ».
       <br>
-      merci de faire preuve de respect et de courtoisie.
+      Merci de faire preuve de respect et de courtoisie. 
     </p>
 
     <div id="comments"></div>

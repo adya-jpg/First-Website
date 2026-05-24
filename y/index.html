@@ -33,7 +33,10 @@ import {
   query,
   orderBy,
   onSnapshot,
-  serverTimestamp
+  serverTimestamp,
+  deleteDoc,
+  doc,
+  updateDoc
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -46,6 +49,19 @@ const firebaseConfig = {
   appId: "1:135127492871:web:dd039554a5f4e3e8467da2",
   measurementId: "G-K2YPSE27VG"
 };
+
+
+let userId = localStorage.getItem("userId");
+
+if (!userId) {
+
+  userId = crypto.randomUUID();
+
+  localStorage.setItem("userId", userId);
+
+}
+
+
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
@@ -54,6 +70,7 @@ const commentsRef = collection(db, "comments");
 
 const q = query(commentsRef, orderBy("time"));
 
+
 onSnapshot(q, (snapshot) => {
 
   const commentsDiv =
@@ -61,9 +78,9 @@ onSnapshot(q, (snapshot) => {
 
   commentsDiv.innerHTML = "";
 
-  snapshot.forEach((doc) => {
+  snapshot.forEach((commentDoc) => {
 
-    const data = doc.data();
+    const data = commentDoc.data();
 
     const div =
       document.createElement("div");
@@ -72,10 +89,65 @@ onSnapshot(q, (snapshot) => {
 
     div.innerHTML = `
       <strong>${data.name}</strong><br>
-      ${data.message}
+
+      <p>${data.message}</p>
+
+      ${
+        data.ownerId === userId
+          ? `
+            <button class="delete-btn">
+              supprimer
+            </button>
+
+            <button class="edit-btn">
+              modifier
+            </button>
+          `
+          : ""
+      }
     `;
 
     commentsDiv.appendChild(div);
+
+    const deleteBtn =
+      div.querySelector(".delete-btn");
+
+    if (deleteBtn) {
+
+      deleteBtn.addEventListener("click", async () => {
+
+        await deleteDoc(
+          doc(db, "comments", commentDoc.id)
+        );
+
+      });
+
+    }
+
+    const editBtn =
+      div.querySelector(".edit-btn");
+
+    if (editBtn) {
+
+      editBtn.addEventListener("click", async () => {
+
+        const newMessage = prompt(
+          "modifier le commentaire :",
+          data.message
+        );
+
+        if (!newMessage) return;
+
+        await updateDoc(
+          doc(db, "comments", commentDoc.id),
+          {
+            message: newMessage
+          }
+        );
+
+      });
+
+    }
 
   });
 
@@ -93,10 +165,12 @@ document
 
   if (!name || !message) return;
 
-  await addDoc(commentsRef, {
+   await addDoc(commentsRef, {
 
     name,
     message,
+
+    ownerId: userId,
 
     time: serverTimestamp()
 
@@ -132,7 +206,7 @@ document
 
   <div class="marquee">
     <marquee>
-      ☆ bienvenue dans mon univers internet bizarre ☆
+      ☆ puissiez-vous toucher les libellules et les étoiles, danser avec les fées et parler à la lune. ☆
     </marquee>
   </div>
 
@@ -177,12 +251,10 @@ document
           <h3>♫ en lecture</h3>
 
           <p>
-            <a href="https://open.spotify.com/playlist/2MZTCNv3xwcxXa08Iquwtf?si=ab1ba16245ce4452" target="_blank" rel="noopener noreferrer">
-              yaelokre — harpy hare
-            </a>
+            hozier — would that i
           </p>
 
-          <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4z6jYPB7DAYBJQhZRjpcDe?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        
           <div class="mini-box">
 
             <h3>mood actuel</h3>
@@ -216,7 +288,7 @@ document
       </div>
 
       <p class="desktop-note">
-        ☆ meilleur sur ordinateur ☆
+        ☆ conçu, codé et écrit par adya verma ☆
       </p>
 
     </div>
@@ -227,15 +299,44 @@ document
       <h2>
         salut internet !!
       </h2>
-
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5r2vONqlMO36DSkKzlV9YR?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       <p>
-        bienvenue dans mon petit univers, dans cette blogue que j'ai créé pour partager mes pensées, mes projets et mes passions avec vous tous,
-        et pour parler de mes livres préférés, ma musique que j'aime, mes projets de code, et tout ce qui me fait vibrer dans ce monde numérique chaotique ☆
-      </p>
-
-      <p>
+       Bonjour, internet. :) <br><br>
+Je m'appelle Adya, et bienvenue dans mon petit coin bizarre de l’internet.<br><br>
+En ce moment, il pleut dehors. Une tasse de thé refroidit lentement sur mon bureau, mes écouteurs jouent une chanson beaucoup trop dramatique, et il est probablement beaucoup trop tard pour que je sois encore réveillée.<br><br>
+Mais honnêtement… la plupart des bonnes choses dans ma vie commencent après minuit.<br><br>
+Parfois, je pense tellement à quelque chose que ça devient presque philosophique… ou poétique. Mes cahiers et mon application de notes sont remplis de pensées étranges, de phrases écrites à 2 h du matin, et d’idées qui semblaient très intelligentes jusqu’au lendemain matin.<br><br>
+Alors je me suis dit :<br>
+Pourquoi ne pas créer un blogue ?<br><br>
+Honnêtement, je suis beaucoup trop paresseuse pour avoir publié un blogue toute seule. :’)<br><br>
+Si ma prof de français n’avait pas annoncé un projet final pour l’unité 4, ce site n’existerait probablement pas. Je serais probablement en train de relire un livre fantastique, d’écouter Hozier dans le noir, ou de regarder la pluie tomber contre ma fenêtre à la place.<br><br>
+Donc un week-end, au lieu de faire quelque chose de normal comme utiliser Google Sites, j’ai décidé de créer mon propre site « from scratch ».<br><br>
+Je n’ai même pas vraiment recherché comment faire. :’)<br><br>
+J’ai juste ouvert Firebase parce que je savais déjà un peu comment ça fonctionnait… puis tout est devenu complètement hors de contrôle.<br><br>
+Quelques heures sont devenues quelques jours.<br>
+Puis beaucoup trop de lignes de code.<br>
+Puis des mini-crises existentielles à 1 h du matin.<br>
+Puis cette étrange petite forêt numérique où tu te trouves maintenant.<br>
+Maintenant, après plus de 2000 lignes de code, beaucoup trop de thé, et plusieurs moments où j’ai dû fixer mon écran comme une âme perdue, tu es officiellement sur mon blogue. :)<br><br>
+J’adore coder et construire des choses — des sites web, des applications, des robots, honnêtement n’importe quoi. J’aime comprendre comment les choses fonctionnent. Petite, je démontais mes jouets juste pour voir ce qu’il y avait à l’intérieur.<br><br>
+Certaines personnes grandissent et arrêtent d’être curieuses.<br>
+Moi, je suis simplement devenue plus dangereuse avec un clavier.<br>
+Mais j’aime aussi lire pendant des heures, écrire des pensées absurdes dans mes cahiers, écouter la pluie contre ma fenêtre, jouer de la flûte, et prétendre que les forêts cachent encore quelque chose de magique.<br><br>
+Ah, et avant que j’oublie :<br><br>
+Bonjour. Je m’appelle Adya.<br>
+Je suis une fille au secondaire, et ce blogue est rempli de mes pensées, histoires, idées, poèmes et obsessions du moment.<br><br>
+Et pour rendre mes amies folles :<br>
+Mon MBTI est probablement INTP.<br>
+… ou INFP.<br>
+Ça change chaque semaine. :P<br><br>
+Mes amies disent que je suis une « overachiever », mais je ne suis pas vraiment d’accord. J’aime juste apprendre des choses complètement aléatoires et parler comme une grand-mère philosophe dans un vieux café à minuit.<br><br>
+Mais bon.<br><br>
+Merci d’être ici, dans mon petit univers rempli de pluie, de musique, de livres, de code, et de pensées beaucoup trop longues pour être écrites dans les notes d’un téléphone. ☆<br>
+      ---<br>
+        une note et un question pour toi : <br>
         ce site est inspiré des vieux blogs internet,
-        des jeux rétro et ma coleur préférée : le vert forêt ☆
+        des jeux rétro et ma coleur préférée : le vert forêt, quel est ta coleur favourite ? ☆ <br>
+        ( le question est sérieux, je veux vraiment savoir. )
       </p>
 
       <div class="retro-box">
@@ -248,7 +349,7 @@ document
           <li>☆ les vieux blogs</li>
           <li>☆ les forêts pixelisées</li>
           <li>☆ les projets de code</li>
-          <li>☆ la coleur vert forêt</li>
+          <li>☆ la coleur vert forêt (oui, je sais que je me répète.)</li>
         </ul>
 
         <div class="retro-box">
@@ -259,19 +360,19 @@ document
 
           <p>
             ☆ <a href="article1.html">
-            blogpost 1
+            une existence fantasque.
             </a>
           </p>
 
           <p>
             ☆ <a href="article2.html">
-            blogpost 2
+            permanence de l'objet.
             </a>
           </p>
 
           <p>
             ☆ <a href="article3.html">
-            blogpost 3
+            fées, pluie, livres et la guitare.
             </a>
           </p>
 
@@ -292,9 +393,9 @@ document
     </h1>
 
     <p class="comments-warning">
-      veuillez noter : les commentaires sont PERMANENTS ET PUBLICS, ce qui signifie qu'ils NE PEUVENT PAS ÊTRE SUPPRIMÉS UNE FOIS PUBLIÉS ET SONT ACCESSIBLES À TOUTE PERSONNE QUI CLIQUE SUR CE SITE. 
+      Veuillez noter : les commentaires sont publics, c’est-à-dire accessibles à toute personne consultant ce site. Vous pouvez les modifier en cliquant sur le bouton « Modifier » et les supprimer en cliquant sur le bouton « Supprimer ».
       <br>
-      merci de faire preuve de respect et de courtoisie.
+      Merci de faire preuve de respect et de courtoisie. 
     </p>
 
     <div id="comments"></div>

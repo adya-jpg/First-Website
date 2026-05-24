@@ -616,3 +616,25 @@ body::after {
   }
 
 }
+
+.delete-btn,
+.edit-btn {
+  margin-top: 10px;
+
+  margin-right: 10px;
+
+  background: #5f7d68;
+
+  border: 2px solid #18271f;
+
+  color: #f5ecd7;
+
+  padding: 8px 12px;
+
+  cursor: pointer;
+}
+
+.delete-btn:hover,
+.edit-btn:hover {
+  background: #7fa38b;
+}
