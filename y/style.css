@@ -101,6 +101,9 @@ body {
 
 .sidebar,
 .content {
+  
+  position: relative;
+
   background: #4f6f5d;
 
   border: 4px solid #18271f;
@@ -638,4 +641,782 @@ body::after {
 .delete-btn:hover,
 .edit-btn:hover {
   background: #7fa38b;
+}
+
+
+.cursor-trail {
+  position: absolute;
+
+  pointer-events: none;
+
+  font-size: 14px;
+
+  color: #f6e7b8;
+
+  text-shadow:
+    0 0 6px rgba(255, 240, 180, 0.8),
+    0 0 12px rgba(255, 240, 180, 0.4);
+
+  animation: sparkleFade 1.9s forwards;
+
+  z-index: 9999;
+}
+
+@keyframes sparkleFade {
+
+  0% {
+    opacity: 1;
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -80%)
+      scale(0.3);
+  }
+
+}
+
+.leaf {
+
+  position: fixed;
+
+  top: -40px;
+
+  pointer-events: none;
+
+  z-index: 999;
+
+  animation-name: fallingLeaf;
+
+  animation-timing-function: linear;
+
+  animation-fill-mode: forwards;
+
+  filter:
+    drop-shadow(0 0 6px rgba(180,255,180,0.2));
+
+}
+
+@keyframes fallingLeaf {
+
+  0% {
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
+  }
+
+  25% {
+
+    transform:
+      translateX(20px)
+      translateY(25vh)
+      rotate(90deg);
+
+  }
+
+  50% {
+
+    transform:
+      translateX(-20px)
+      translateY(50vh)
+      rotate(180deg);
+
+  }
+
+  75% {
+
+    transform:
+      translateX(15px)
+      translateY(75vh)
+      rotate(270deg);
+
+  }
+
+  100% {
+
+    transform:
+      translateX(-10px)
+      translateY(110vh)
+      rotate(360deg);
+
+    opacity: 0;
+
+  }
+
+}
+
+.frog-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.pixel-frog {
+  width: 190px;
+  image-rendering: pixelated;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0 0 10px #b7ff9d88);
+}
+
+.pixel-frog:hover {
+  transform: translateY(-4px);
+}
+
+.frog-message {
+  margin-top: 10px;
+  background: #2c5039;
+  border: 2px solid #a7dca2;
+  color: #f6f1df;
+  padding: 10px 18px;
+  border-radius: 18px;
+  font-size: 15px;
+  text-align: center;
+  max-width: 240px;
+  box-shadow: 0 0 12px #00000033;
+}
+
+
+body.night-mode {
+
+  background:
+    linear-gradient(
+      to bottom,
+      #07110a,
+      #0d1b12,
+      #000000
+    );
+
+  color: #d8ffe1;
+}
+
+body.night-mode .content,
+body.night-mode .sidebar,
+body.night-mode .retro-box,
+body.night-mode .mini-box,
+body.night-mode .container {
+
+  background: rgba(10, 20, 12, 0.88);
+
+  border-color: #8fffa2;
+
+  box-shadow:
+    0 0 18px rgba(143,255,162,0.2);
+}
+
+body.night-mode .menu-button {
+
+  background: #102417;
+
+  color: #c6ffd0;
+}
+
+body.night-mode .frog-message {
+
+  background: #0f1e13;
+
+  color: #b8ffca;
+}
+
+.night-button {
+
+  margin-top: 14px;
+
+  padding: 8px 14px;
+
+  border: 2px solid #9effb2;
+
+  background: #163020;
+
+  color: #d8ffe1;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  transition: 0.3s;
+}
+
+.night-button:hover {
+
+  transform: scale(1.05);
+
+  box-shadow:
+    0 0 14px rgba(158,255,178,0.5);
+}
+
+.sound-panel {
+
+  margin-top: 18px;
+
+  padding: 18px;
+
+  background: rgba(20, 40, 24, 0.7);
+
+  border: 2px solid #9effb2;
+}
+
+.sound-panel h3 {
+
+  margin-bottom: 10px;
+}
+
+.sound-panel button {
+
+  display: block;
+
+  width: 100%;
+
+  margin-bottom: 8px;
+
+  padding: 8px;
+
+  border: none;
+
+  background: #1d3825;
+
+  color: #d8ffe1;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.sound-panel button:hover {
+
+  transform: scale(1.03);
+
+  box-shadow:
+    0 0 10px rgba(158,255,178,0.35);
+}
+
+#popup-container {
+
+  position: fixed;
+
+  bottom: 20px;
+
+  right: 20px;
+
+  z-index: 9999;
+}
+
+.fake-popup {
+
+  width: 240px;
+
+  margin-top: 12px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #1a3522,
+      #102117
+    );
+
+  border: 2px solid #9effb2;
+
+  box-shadow:
+    0 0 18px rgba(158,255,178,0.25);
+
+  animation:
+    popupAppear 0.4s ease;
+
+  font-size: 14px;
+
+  color: #e3ffe9;
+}
+
+.popup-header {
+
+  background: #284732;
+
+  padding: 6px 10px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  font-weight: bold;
+}
+
+.popup-content {
+
+  padding: 14px;
+}
+
+.popup-close {
+
+  cursor: pointer;
+}
+
+@keyframes popupAppear {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(20px)
+      scale(0.95);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
+
+}
+
+.pond-area {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 140px;
+
+  margin-top: 30px;
+
+  overflow: hidden;
+
+  border-top:
+    2px solid rgba(170,255,190,0.2);
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(20,50,30,0.15),
+      rgba(10,25,15,0.45)
+    );
+}
+
+/* water shimmer */
+
+.pond-area::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      rgba(255,255,255,0.03) 2px,
+      transparent 4px
+    );
+
+  opacity: 0.4;
+
+  animation:
+    waterMove 8s linear infinite;
+}
+
+.lily-pad {
+
+  position: absolute;
+
+  width: 90px;
+
+  image-rendering: pixelated;
+
+  filter:
+    drop-shadow(0 0 10px rgba(120,255,160,0.25));
+
+  animation:
+    floatPad 5s ease-in-out infinite;
+}
+
+/* positions */
+
+.lily1 {
+
+  left: 6%;
+  top: 35px;
+
+  animation-delay: 0s;
+}
+
+.lily2 {
+
+  left: 30%;
+  top: 45px;
+
+  animation-delay: 1.5s;
+}
+
+.lily3 {
+
+  left: 58%;
+  top: 20px;
+
+  animation-delay: 2.5s;
+}
+
+.lily4 {
+
+  left: 82%;
+  top: 50px;
+
+  animation-delay: 3.5s;
+}
+
+@keyframes floatPad {
+
+  0% {
+
+    transform:
+      translateY(0px)
+      rotate(0deg);
+
+  }
+
+  50% {
+
+    transform:
+      translateY(-8px)
+      rotate(2deg);
+
+  }
+
+  100% {
+
+    transform:
+      translateY(0px)
+      rotate(0deg);
+
+  }
+
+}
+
+@keyframes waterMove {
+
+  from {
+
+    transform: translateX(0);
+
+  }
+
+  to {
+
+    transform: translateX(60px);
+
+  }
+
+}
+
+.pond-firefly {
+
+  position: absolute;
+
+  width: 8px;
+
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #d8ff9d;
+
+  box-shadow:
+    0 0 12px #d8ff9d,
+    0 0 24px rgba(216,255,157,0.6);
+
+  animation:
+    fireflyFloat 6s ease-in-out infinite;
+}
+
+.firefly1 {
+  left: 12%;
+  top: 30px;
+  animation-delay: 0s;
+}
+
+.firefly2 {
+  left: 38%;
+  top: 90px;
+  animation-delay: 1s;
+}
+
+.firefly3 {
+  left: 58%;
+  top: 40px;
+  animation-delay: 2s;
+}
+
+.firefly4 {
+  left: 77%;
+  top: 80px;
+  animation-delay: 3s;
+}
+
+.firefly5 {
+  left: 90%;
+  top: 50px;
+  animation-delay: 4s;
+}
+
+@keyframes fireflyFloat {
+
+  0% {
+
+    transform:
+      translateY(0px)
+      translateX(0px);
+
+    opacity: 0.4;
+  }
+
+  50% {
+
+    transform:
+      translateY(-10px)
+      translateX(6px);
+
+    opacity: 1;
+  }
+
+  100% {
+
+    transform:
+      translateY(0px)
+      translateX(0px);
+
+    opacity: 0.4;
+  }
+
+}
+
+.ripple {
+
+  position: absolute;
+
+  width: 12px;
+
+  height: 12px;
+
+  border-radius: 50%;
+
+  border:
+    2px solid rgba(180,255,220,0.45);
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  animation:
+    rippleExpand 1.2s ease-out forwards;
+}
+
+@keyframes rippleExpand {
+
+  from {
+
+    width: 12px;
+    height: 12px;
+
+    opacity: 0.7;
+  }
+
+  to {
+
+    width: 90px;
+    height: 90px;
+
+    opacity: 0;
+  }
+
+}
+.secret-window {
+
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 540px;
+
+  background: #183626;
+
+  border: 4px solid #9be79b;
+
+  z-index: 99999;
+
+  box-shadow:
+    0 0 30px rgba(155, 231, 155, 0.5);
+
+  image-rendering: pixelated;
+
+  animation: popupAppear 0.3s ease;
+}
+
+.window-header {
+
+  background: #0d2017;
+
+  padding: 12px;
+
+  color: #dfffdc;
+
+  font-weight: bold;
+
+  border-bottom: 3px solid #9be79b;
+}
+
+.window-content {
+
+  padding: 20px;
+
+  text-align: center;
+}
+
+#frogGame {
+
+  background:
+    radial-gradient(circle, #1d4d34, #0c1f16);
+
+  border: 3px solid #9be79b;
+}
+
+#closeGame {
+
+  margin-top: 15px;
+
+  background: #214d34;
+
+  border: 2px solid #9be79b;
+
+  color: white;
+
+  padding: 10px 20px;
+
+  cursor: pointer;
+}
+
+@keyframes popupAppear {
+
+  from {
+
+    transform:
+      translate(-50%, -50%)
+      scale(0.7);
+
+    opacity: 0;
+  }
+
+  to {
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+
+    opacity: 1;
+  }
+
+}
+
+.konami-popup {
+
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 420px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #10281c,
+      #1d4732
+    );
+
+  border: 4px solid #9be79b;
+
+  z-index: 999999;
+
+  box-shadow:
+    0 0 40px rgba(155, 231, 155, 0.4);
+
+  animation:
+    popupAppear 0.25s ease;
+
+  image-rendering: pixelated;
+}
+
+.popup-header {
+
+  background: #091710;
+
+  color: #dfffdc;
+
+  padding: 12px;
+
+  font-weight: bold;
+
+  border-bottom:
+    3px solid #9be79b;
+}
+
+.popup-content {
+
+  padding: 24px;
+
+  text-align: center;
+
+  color: #e8ffe8;
+}
+
+.popup-content p {
+
+  margin-bottom: 18px;
+
+  line-height: 1.5;
+}
+
+#popupContinue {
+
+  background: #214d34;
+
+  color: white;
+
+  border: 2px solid #9be79b;
+
+  padding: 10px 22px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+  transition: 0.2s;
+}
+
+#popupContinue:hover {
+
+  transform: scale(1.05);
+
+  box-shadow:
+    0 0 14px rgba(155, 231, 155, 0.6);
 }

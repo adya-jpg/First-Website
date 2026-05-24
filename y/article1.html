@@ -64,7 +64,8 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-const commentsRef = collection(db, "comments");
+const pageId = "article1";
+const commentsRef = collection(db, `comments_${pageId}`);
 
 const q = query(commentsRef, orderBy("time"));
 
@@ -115,7 +116,7 @@ onSnapshot(q, (snapshot) => {
       deleteBtn.addEventListener("click", async () => {
 
         await deleteDoc(
-          doc(db, "comments", commentDoc.id)
+          doc(db, `comments_${pageId}`, commentDoc.id)
         );
 
       });
@@ -137,7 +138,7 @@ onSnapshot(q, (snapshot) => {
         if (!newMessage) return;
 
         await updateDoc(
-          doc(db, "comments", commentDoc.id),
+          doc(db, `comments_${pageId}`, commentDoc.id),
           {
             message: newMessage
           }
@@ -182,6 +183,67 @@ document
 
 </script>
 
+
+<script>
+const trailSymbols = ["✦", "⋆", "☾", "❀"];
+
+document.addEventListener("mousemove", (e) => {
+
+  const sparkle = document.createElement("div");
+
+  sparkle.className = "cursor-trail";
+
+  sparkle.innerText =
+    trailSymbols[
+      Math.floor(Math.random() * trailSymbols.length)
+    ];
+
+  sparkle.style.left = e.pageX + "px";
+  sparkle.style.top = e.pageY + "px";
+
+  document.body.appendChild(sparkle);
+
+  setTimeout(() => {
+    sparkle.remove();
+  }, 900);
+
+});
+</script>
+
+
+<script>
+
+function createLeaf() {
+
+  const leaf = document.createElement("div");
+
+  leaf.classList.add("leaf");
+
+  leaf.innerHTML = "🍃";
+
+  leaf.style.left =
+    Math.random() * window.innerWidth + "px";
+
+  leaf.style.animationDuration =
+    (6 + Math.random() * 6) + "s";
+
+  leaf.style.opacity =
+    0.3 + Math.random() * 0.5;
+
+  leaf.style.fontSize =
+    (14 + Math.random() * 18) + "px";
+
+  document.body.appendChild(leaf);
+
+  setTimeout(() => {
+    leaf.remove();
+  }, 12000);
+
+}
+
+setInterval(createLeaf, 900);
+
+</script>
 
 <body>
 
@@ -265,6 +327,7 @@ document
               ★ attaches zippées<br>
             </p>
             
+            
             <div class="stamp-box">
 
               <img src="images/stamp1.png">
@@ -274,7 +337,27 @@ document
 
             </div>
             
+<div class="frog-container">
 
+  <img
+    src="images/frog.png"
+    class="pixel-frog"
+    id="frog"
+  >
+
+  <div
+    class="frog-message"
+    id="frogText"
+  >
+    salut humain.
+  </div><br>
+
+
+              <button id="nightToggle" class="night-button">
+                ☾ mode nuit
+              </button><br>
+
+            </div>
 
           </div>
 
@@ -284,15 +367,56 @@ document
 
       </div>
 
+      
+<div class="sound-panel">
+
+  <h3>♫ ambiance</h3><br>
+
+  <button onclick="toggleSound('rain')">
+    pluie
+  </button>
+
+  <button onclick="toggleSound('forest')">
+    forêt
+  </button>
+
+  <button onclick="toggleSound('fire')">
+    feu
+  </button>
+
+  <button onclick="toggleSound('thunder')">
+    tonnerre
+  </button>
+
+</div>
+
+<audio id="rain" loop>
+  <source src="sounds/rain.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="forest" loop>
+  <source src="sounds/forest.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="fire" loop>
+  <source src="sounds/fire.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="thunder" loop>
+  <source src="sounds/thunder.mp3" type="audio/mpeg">
+</audio>
+
+
       <p class="desktop-note">
         ☆ conçu, codé et écrit par adya verma ☆
       </p>
+
+      
 
     </div>
     <!-- CONTENT -->
 
     <div class="content">
-
       <h2>
         une existence fantasque.
       </h2>
@@ -385,9 +509,23 @@ dites-moi, à quand remonte la dernière fois où vous avez fait quelque chose s
     </p>
 
     <div id="comments"></div>
+    
+    <div class="pond-area">
+
+      <img src="images/lilypad.png" class="lily-pad lily1">
+      <img src="images/lilypad.png" class="lily-pad lily2">
+      <img src="images/lilypad.png" class="lily-pad lily3">
+      <img src="images/lilypad.png" class="lily-pad lily4">
+      <div class="pond-firefly firefly1"></div>
+      <div class="pond-firefly firefly2"></div>
+      <div class="pond-firefly firefly3"></div>
+      <div class="pond-firefly firefly4"></div>
+      <div class="pond-firefly firefly5"></div>
+
+    </div>
 
     <div class="input-area">
-
+      
       <input
         id="nom"
         placeholder="ton nom..."
@@ -401,7 +539,7 @@ dites-moi, à quand remonte la dernière fois où vous avez fait quelque chose s
       <button id="envoyer">
         envoyer
       </button>
-
+       
     </div>
 
   </div>
@@ -423,5 +561,10 @@ dites-moi, à quand remonte la dernière fois où vous avez fait quelque chose s
     window.addEventListener('resize', updateBubbleFade);
     updateBubbleFade();
   </script>
+  
+<script src="script.js"></script>
+
+<div id="popup-container"></div>
+
 </body>
 </html>
