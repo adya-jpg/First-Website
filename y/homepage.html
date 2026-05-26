@@ -221,7 +221,10 @@ function createLeaf() {
 
   leaf.classList.add("leaf");
 
-  leaf.innerHTML = "🍃";
+leaf.innerHTML =
+  document.body.classList.contains("night-mode")
+    ? "✦"
+    : "🍃";
 
   leaf.style.left =
     Math.random() * window.innerWidth + "px";
@@ -441,7 +444,7 @@ Quelques heures sont devenues quelques jours.<br>
 Puis beaucoup trop de lignes de code.<br>
 Puis des mini-crises existentielles à 1 h du matin.<br>
 Puis cette étrange petite forêt numérique où tu te trouves maintenant.<br>
-Maintenant, après plus de 2000 lignes de code, beaucoup trop de thé, et plusieurs moments où j’ai dû fixer mon écran comme une âme perdue, tu es officiellement sur mon blogue. :)<br><br>
+Maintenant, après plus de 5000 lignes de code, beaucoup trop de thé, et plusieurs moments où j’ai dû fixer mon écran comme une âme perdue, tu es officiellement sur mon blogue. :)<br><br>
 J’adore coder et construire des choses — des sites web, des applications, des robots, honnêtement n’importe quoi. J’aime comprendre comment les choses fonctionnent. Petite, je démontais mes jouets juste pour voir ce qu’il y avait à l’intérieur.<br><br>
 Certaines personnes grandissent et arrêtent d’être curieuses.<br>
 Moi, je suis simplement devenue plus dangereuse avec un clavier.<br>
@@ -499,6 +502,15 @@ Merci d’être ici, dans mon petit univers rempli de pluie, de musique, de livr
             fées, pluie, livres et la guitare.
             </a>
           </p>
+
+           <div class="banner-wrapper">
+
+  <img
+    src="images/forest5.gif"
+    class="article-banner"
+  >
+
+</div>
 
         </div>
 

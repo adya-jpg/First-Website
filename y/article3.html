@@ -220,7 +220,10 @@ function createLeaf() {
 
   leaf.classList.add("leaf");
 
-  leaf.innerHTML = "🍃";
+leaf.innerHTML =
+  document.body.classList.contains("night-mode")
+    ? "✦"
+    : "🍃";
 
   leaf.style.left =
     Math.random() * window.innerWidth + "px";
@@ -499,6 +502,15 @@ je ne pense pas que ce message ait besoin d'une note de bas de page, mais dites-
           <li>☆ Les livres, la musique, la pluie et les petites choses magiques permettent de préserver un sentiment d’émerveillement en grandissant.</li>
           <li>☆ Changer ne signifie pas perdre son identité ; on peut évoluer tout en gardant son « âme » et sa façon unique de voir le monde.</li>
         </ul>
+        
+           <div class="banner-wrapper">
+
+  <img
+    src="images/forest4.gif"
+    class="article-banner"
+  >
+
+</div>
 
       </div>
 

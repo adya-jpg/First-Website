@@ -388,3 +388,50 @@ function startFrogGame() {
   draw();
 
 }
+
+const toggleBtn =
+  document.getElementById("nightToggle");
+
+toggleBtn.addEventListener("click", () => {
+
+  document.body.classList.toggle(
+    "night-mode"
+  );
+
+});
+if (
+  document.body.classList.contains(
+    "night-mode"
+  )
+) {
+
+  leaf.innerHTML = "✦";
+
+} else {
+
+  leaf.innerHTML = "🍃";
+
+}
+
+if (
+  document.body.classList.contains(
+    "night-mode"
+  )
+) {
+
+  frogMessages.push(
+    "les étoiles sont réveillées.",
+    "la forêt est différente la nuit.",
+    "quelque chose bouge dehors."
+  );
+
+}
+
+const nightButton =
+  document.getElementById("nightToggle");
+
+nightButton.addEventListener("click", () => {
+
+  document.body.classList.toggle("night-mode");
+
+});

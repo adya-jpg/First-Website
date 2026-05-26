@@ -190,7 +190,11 @@ function createLeaf() {
 
   leaf.classList.add("leaf");
 
-  leaf.innerHTML = "🍃";
+
+leaf.innerHTML =
+  document.body.classList.contains("night-mode")
+    ? "✦"
+    : "🍃";
 
   leaf.style.left =
     Math.random() * window.innerWidth + "px";
@@ -482,6 +486,17 @@ oui je sais, c'est un peu sombre pour un article de blog, mais êtes-vous d'acco
           <li>☆ pour survivre mentalement, les humains ignorent partiellement l’impermanence et transforment la mort en idée lointaine et abstraite.</li>
           <li>☆ malgré le fait que tout disparaisse un jour, les humains continuent d’aimer, de créer et d’espérer.</li>
         </ul>
+
+        
+           <div class="banner-wrapper">
+
+  <img
+    src="images/forest3.gif"
+    class="article-banner"
+  >
+
+
+</div>
 
       </div>
 

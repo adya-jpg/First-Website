@@ -219,7 +219,11 @@ function createLeaf() {
 
   leaf.classList.add("leaf");
 
-  leaf.innerHTML = "🍃";
+  
+leaf.innerHTML =
+  document.body.classList.contains("night-mode")
+    ? "✦"
+    : "🍃";
 
   leaf.style.left =
     Math.random() * window.innerWidth + "px";
@@ -487,7 +491,16 @@ dites-moi, à quand remonte la dernière fois où vous avez fait quelque chose s
           <li>☆ La vie devient plus belle quand on rit fort, fait des choses spontanées et arrête de se soucier du regard des autres.</li>
           <li>☆ Une « existence fantasque » consiste à préserver sa curiosité, sa joie et sa capacité à trouver de la magie dans les petites choses.</li>
         </ul>
+        
+           <div class="banner-wrapper">
 
+  <img
+    src="images/forest2.gif"
+    class="article-banner"
+  >
+
+
+</div>
       </div>
 
     </div>
