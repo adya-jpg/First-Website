@@ -41,7 +41,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-const pageId = "homepage";
+const pageId = document.body.dataset.page;
 const commentsRef = collection(db, `comments_${pageId}`);
 
 const q = query(commentsRef, orderBy("time"));

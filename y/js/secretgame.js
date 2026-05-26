@@ -152,14 +152,31 @@ function startFrogGame() {
       frogY += 12;
 
   }
+const isNight =
+  document.body.classList.contains("night-mode");
 
+const frogColor = isNight
+  ? "#8ecfff"
+  : "#8df58d";
+
+const flyColor = isNight
+  ? "#d6ecff"
+  : "#fff6a9";
   function draw() {
 
     ctx.clearRect(0, 0, 500, 300);
+    const isNight =
+  document.body.classList.contains("night-mode");
+
+ctx.fillStyle = isNight
+  ? "#081a38"
+  : "#1d4d34";
+
+ctx.fillRect(0, 0, 500, 300);
 
     flies.forEach((fly) => {
 
-      ctx.fillStyle = "#fff6a9";
+      ctx.fillStyle = flyColor;
 
       ctx.beginPath();
 
@@ -181,7 +198,7 @@ function startFrogGame() {
 
     });
 
-    ctx.fillStyle = "#8df58d";
+    ctx.fillStyle = frogColor;
 
     ctx.fillRect(frogX, frogY, 20, 20);
 

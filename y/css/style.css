@@ -900,6 +900,37 @@ body.night-mode .comment {
 /* popup windows */
 
 body.night-mode .popup-window {
+  background:
+    linear-gradient(
+      to bottom,
+      #041a2d,
+      #071f38
+    );
+
+  border: 2px solid #8ecfff;
+
+  box-shadow:
+    0 0 18px rgba(120, 180, 255, 0.35);
+}
+
+body.night-mode .popup-header {
+  background: #102a52;
+
+  color: #d6ecff;
+
+  border-bottom:
+    2px solid #8ecfff;
+}
+
+body.night-mode .popup-window button {
+  background: #0c2442;
+
+  color: #dff3ff;
+
+  border: 2px solid #8ecfff;
+}
+
+body.night-mode .popup-window {
   background: #08172d;
   border: 2px solid #89c2ff;
   box-shadow:
@@ -1444,6 +1475,18 @@ body.night-mode .container {
   border: 3px solid #9be79b;
 }
 
+body.night-mode #frogGame {
+
+  background:
+    radial-gradient(
+      circle,
+      #10264a,
+      #08152c
+    );
+
+  border: 3px solid #8ecfff;
+}
+
 #closeGame {
 
   margin-top: 15px;
@@ -1711,5 +1754,65 @@ body.night-mode .container {
 .banner-wrapper {
   position: relative;
   overflow: hidden;
+}
+
+/* ===== NIGHT MODE POPUP FIX ===== */
+
+body.night-mode .fake-popup,
+body.night-mode .konami-popup,
+body.night-mode .secret-window {
+
+  background:
+    linear-gradient(
+      to bottom,
+      #08172d,
+      #0d2347
+    );
+
+  border: 3px solid #89c2ff;
+
+  box-shadow:
+    0 0 25px rgba(120,180,255,0.35);
+
+  color: #dcecff;
+}
+
+/* headers */
+
+body.night-mode .fake-popup .popup-header,
+body.night-mode .konami-popup .popup-header,
+body.night-mode .secret-window .window-header {
+
+  background: #10294d;
+
+  color: #dcecff;
+
+  border-bottom: 2px solid #89c2ff;
+}
+
+/* popup text */
+
+body.night-mode .popup-content,
+body.night-mode .window-content {
+
+  color: #dcecff;
+}
+
+/* popup buttons */
+
+body.night-mode #popupContinue,
+body.night-mode #closeGame {
+
+  background: #11284a;
+
+  border: 2px solid #89c2ff;
+
+  color: #dcecff;
+}
+
+body.night-mode #popupContinue:hover,
+body.night-mode #closeGame:hover {
+
+  background: #173760;
 }
 
