@@ -1,8 +1,6 @@
+
 {
   "projects": {
-    "default": "leblogd-adya",
-    "main": "leblogd-adya"
-  },
-  "targets": {},
-  "etags": {}
+    "default": "leblogd-adya"
+  }
 }

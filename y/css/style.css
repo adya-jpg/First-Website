@@ -784,83 +784,220 @@ body::after {
   max-width: 240px;
   box-shadow: 0 0 12px #00000033;
 }
+/* NIGHT MODE */
 
-.night-mode {
+body.night-mode {
+  background: #07111f;
+  color: #cfe6ff;
+}
 
+/* main boxes */
+
+body.night-mode .content,
+body.night-mode .sidebar,
+body.night-mode .retro-box,
+body.night-mode .mini-box,
+body.night-mode .container {
+  background: rgba(10, 20, 40, 0.9);
+  border: 2px solid #6aa7ff;
+  color: #dbeaff;
+  box-shadow: 0 0 12px rgba(120, 180, 255, 0.25);
+}
+
+/* buttons */
+
+body.night-mode .menu-button,
+body.night-mode button {
+  background: #10213d;
+  color: #cfe6ff;
+  border: 2px solid #7db8ff;
+}
+
+/* links */
+
+body.night-mode a {
+  color: #9fd0ff;
+}
+
+/* frog message */
+
+body.night-mode .frog-message {
+  background: #112746;
+  border: 2px solid #8dc3ff;
+  color: #dff1ff;
+}
+
+/* comments */
+
+body.night-mode .comment {
+  background: rgba(15, 25, 45, 0.9);
+  border-left: 3px solid #8dc3ff;
+}
+
+/* inputs */
+
+body.night-mode input {
+  background: #0e1d35;
+  color: #dff1ff;
+  border: 2px solid #6aa7ff;
+}
+
+/* marquee */
+
+body.night-mode .marquee {
+  background: #08192e;
+  border-top: 2px solid #7db8ff;
+  border-bottom: 2px solid #7db8ff;
+}
+
+/* ===== FINAL NIGHT MODE FIXES ===== */
+
+/* header */
+
+body.night-mode .rainbow-header {
+  background: linear-gradient(
+    to right,
+    #0b1730,
+    #10264a
+  );
+
+  border: 3px solid #79b8ff;
+}
+
+/* marquee */
+
+body.night-mode .marquee {
+  background: #08182f;
+  border-top: 2px solid #6ea8ff;
+  border-bottom: 2px solid #6ea8ff;
+}
+
+body.night-mode marquee {
+  color: #9fcfff;
+}
+
+/* visitor counter */
+
+body.night-mode .visitor-counter {
+  background: #10213d;
+  color: #dcecff;
+  border: 2px solid #7ab6ff;
+}
+
+/* comment boxes */
+
+body.night-mode .comment {
   background:
     linear-gradient(
       to bottom,
-      #07111f,
-      #102340,
-      #09121f
+      rgba(8, 18, 40, 0.95),
+      rgba(10, 25, 50, 0.95)
     );
 
-  color: #dbe7ff;
+  border-left: 3px solid #89c2ff;
 }
-.night-mode .retro-box,
-.night-mode .sidebar,
-.night-mode .content,
-.night-mode .container {
 
+/* popup windows */
+
+body.night-mode .popup-window {
+  background: #08172d;
+  border: 2px solid #89c2ff;
+  box-shadow:
+    0 0 18px rgba(120, 180, 255, 0.35);
+}
+
+body.night-mode .popup-header {
+  background: #10294d;
+  border-bottom: 1px solid #7ab6ff;
+}
+
+/* sound panel */
+
+body.night-mode .sound-panel {
   background:
-    rgba(12, 22, 40, 0.82);
+    linear-gradient(
+      to bottom,
+      rgba(8, 18, 40, 0.96),
+      rgba(12, 30, 55, 0.96)
+    );
 
-  border:
-    2px solid rgba(130,170,255,0.25);
+  border: 2px solid #89c2ff;
+}
+
+/* pond */
+
+body.night-mode .pond-area {
+  background:
+    linear-gradient(
+      to bottom,
+      #081a38,
+      #0c2147
+    );
+}
+
+/* inputs */
+
+body.night-mode input {
+  background: #0d1e38;
+  color: #dcecff;
+  border: 2px solid #79b8ff;
+}
+
+/* placeholders */
+
+body.night-mode input::placeholder {
+  color: #a9cfff;
+}
+
+/* buttons */
+
+body.night-mode button {
+  background: #11284a;
+  color: #dcecff;
+  border: 2px solid #79b8ff;
+}
+
+body.night-mode button:hover {
+  background: #173760;
+}
+
+/* stars */
+
+body.night-mode .stars {
+  opacity: 1;
+  filter: drop-shadow(0 0 4px #9fd3ff);
+}
+
+/* remove green gaps between comments */
+
+body.night-mode #comments {
+  background: transparent;
+}
+
+body.night-mode .comment {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(6, 16, 38, 0.96),
+      rgba(10, 24, 52, 0.96)
+    );
+
+  border-left: 3px solid #8bc4ff;
+
+  margin-bottom: 18px;
 
   box-shadow:
-    0 0 18px rgba(120,160,255,0.12);
+    0 0 18px rgba(100, 170, 255, 0.08);
 }
 
-.night-mode a {
 
-  color: #9dc1ff;
-}
-
-.night-mode a:hover {
-
-  color: #dbe7ff;
-}
-
-body.night-mode .menu-button {
-
-  background: #102417;
-
-  color: #aad0ff;
-}
-
-body.night-mode .frog-message {
-
-  background: #0f1e13;
-
-  color: #98cdff;
-}
-
-.night-button {
-
-  margin-top: 14px;
-
-  padding: 8px 14px;
-
-  border: 2px solid #9effb2;
-
-  background: #163020;
-
-  color: #d8ffe1;
-
-  cursor: pointer;
-
-  font-family: inherit;
-
-  transition: 0.3s;
-}
-
-.night-button:hover {
-
-  transform: scale(1.05);
-
-  box-shadow:
-    0 0 14px rgba(158,255,178,0.5);
+body.night-mode .container {
+  background:
+    linear-gradient(
+      to bottom,
+      #08152c,
+      #0a1d3d
+    );
 }
 
 .sound-panel {
