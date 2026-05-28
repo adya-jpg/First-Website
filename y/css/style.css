@@ -429,6 +429,32 @@ body::after {
   background: #d8e2c8;
 }
 
+/* Night mode scroll bar */
+/* normal scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #dbefda;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #478b55;
+  border-radius: 10px;
+}
+
+/* night mode scrollbar */
+
+body.night-mode::-webkit-scrollbar-track {
+  background: #0f1724;
+}
+
+body.night-mode::-webkit-scrollbar-thumb {
+  background: #2e4976;
+}
+
 .retro-box {
   margin-top: 30px;
 

@@ -30,23 +30,28 @@ openBooksBtn.addEventListener("click", () => {
       <h3>✦ recommandations ✦</h3>
 
       <p>
-        <strong>Le Petit Prince</strong><br>
-        étoiles et solitude.
+        <strong>The Cruel Prince</strong><br>
+        étoiles et magique.
       </p>
 
       <p>
-        <strong>Coraline</strong><br>
-        étrange et magique.
+        <strong>Harry Potter</strong><br>
+        nostalgie et aventure.
       </p>
 
       <p>
         <strong>Narnia</strong><br>
-        forêts et aventure.
+        forêts et créatures fantastiques.
       </p>
 
       <p>
-        <strong>Hamlet</strong><br>
-        mélancolie nocturne.
+        <strong>Romeo and Juliet</strong><br>
+        amour interdit et tragédie.
+      </p>
+
+       <p>
+        <strong>Once Upon a Broken Heart</strong><br>
+        aventure et amour.
       </p>
 
     </div>
